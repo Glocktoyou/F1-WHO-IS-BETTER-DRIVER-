@@ -6,7 +6,7 @@
 [![Flask](https://img.shields.io/badge/Flask-2.0+-green.svg)](https://flask.palletsprojects.com/)
 [![FastF1](https://img.shields.io/badge/FastF1-3.0+-red.svg)](https://theoehrly.github.io/Fast-F1/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Try_Now-brightgreen.svg)](https://f1-who-is-better-driver.onrender.com)
+[![GitHub Stars](https://img.shields.io/github/stars/Glocktoyou/F1-WHO-IS-BETTER-DRIVER-?style=social)](https://github.com/Glocktoyou/F1-WHO-IS-BETTER-DRIVER-)
 
 ## 🎯 Overview
 
@@ -21,21 +21,9 @@ This project provides **data-driven insights** to answer the eternal F1 question
 - 📥 **Data Export** - CSV export functionality for further analysis
 - 🚀 **Production Ready** - Deployable with proper error handling and logging
 
-## 🌐 Live Demo
+## 🚀 Get Started
 
-**🔗 Try the live application:** [**F1 Driver Analysis Dashboard**](https://f1-who-is-better-driver.onrender.com)
-
-> *Experience the full F1 analysis dashboard with real telemetry data from recent seasons. Compare your favorite drivers across different tracks and sessions!*
-
-**📱 Quick Demo Features:**
-- Select any F1 season (2018-2024)
-- Choose from 20+ Grand Prix circuits  
-- Compare drivers like Verstappen vs Hamilton
-- Generate 8 different visualization types
-- Export telemetry data as CSV
-- View real-time performance metrics
-
-**💡 Local Development:**
+**🏠 Run Locally (Recommended):**
 ```bash
 git clone https://github.com/Glocktoyou/F1-WHO-IS-BETTER-DRIVER-.git
 cd F1-WHO-IS-BETTER-DRIVER-
@@ -43,6 +31,22 @@ pip install -r requirements.txt
 python app.py
 # Visit http://localhost:5000
 ```
+
+**☁️ Deploy Your Own Instance:**
+- **Render**: Free hosting with automatic deployments
+- **Heroku**: Professional cloud platform
+- **Railway**: One-click deployment from GitHub
+- **Local Production**: Using Gunicorn server
+
+> *See [Deployment Section](#🌐-deployment) below for detailed instructions*
+
+**📱 Features You'll Get:**
+- Select any F1 season (2018-2024)
+- Choose from 20+ Grand Prix circuits  
+- Compare drivers like Verstappen vs Hamilton
+- Generate 8 different visualization types
+- Export telemetry data as CSV
+- View real-time performance metrics
 
 ## 🏗️ Project Structure
 
@@ -94,15 +98,7 @@ python app.py
 
 ## 🚀 Quick Start
 
-### Option 1: Try Live Demo (Instant Access)
-
-**🌐 [**Launch F1 Analysis Dashboard**](https://f1-who-is-better-driver.onrender.com)**
-- No installation required - runs in your browser
-- Full access to F1 data from 2018-2024 seasons
-- Compare any drivers across all Grand Prix tracks
-- Generate visualizations and export data instantly
-
-### Option 2: Local Installation
+### Option 1: Local Installation (Recommended)
 
 ```bash
 # Clone the repository
@@ -118,7 +114,7 @@ python app.py
 # Visit http://localhost:5000
 ```
 
-### Option 3: Command Line Interface
+### Option 2: Command Line Interface
 
 ```bash
 # Basic driver analysis
@@ -250,18 +246,6 @@ python test_manual.py
 ```
 
 ## 🌐 Deployment
-
-### ✨ Live Demo (Render)
-
-The application is deployed and running live at:
-**🔗 https://f1-who-is-better-driver.onrender.com**
-
-This production deployment includes:
-- ✅ Full F1 telemetry analysis functionality
-- ✅ Interactive web dashboard with all 8 visualization types
-- ✅ Real-time data from FastF1 API (2018-2024 seasons)
-- ✅ CSV export and data download capabilities
-- ✅ Responsive design for mobile and desktop
 
 ### 🏠 Local Production Server
 

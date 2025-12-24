@@ -27,8 +27,8 @@ setup(
     project_urls={
         "Bug Tracker": "https://github.com/Glocktoyou/F1-WHO-IS-BETTER-DRIVER-/issues",
         "Documentation": "https://github.com/Glocktoyou/F1-WHO-IS-BETTER-DRIVER-#readme",
-        "Live Demo": "https://f1-who-is-better-driver.onrender.com",
         "Source Code": "https://github.com/Glocktoyou/F1-WHO-IS-BETTER-DRIVER-",
+        "Contributing": "https://github.com/Glocktoyou/F1-WHO-IS-BETTER-DRIVER-/blob/main/CONTRIBUTING.md",
     },
     packages=find_packages(),
     classifiers=[
