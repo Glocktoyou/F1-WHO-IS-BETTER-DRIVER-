@@ -1,0 +1,9 @@
+name: f1-driver-performance-analysis
+dependencies:
+  - python=3.10
+  - fastf1
+  - pandas
+  - numpy
+  - matplotlib
+channels:
+  - conda-forge
