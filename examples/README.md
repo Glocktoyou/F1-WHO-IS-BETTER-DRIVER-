@@ -20,8 +20,8 @@ Analyze a single driver's performance in a session:
 python main.py --year 2024 --track Monaco --session Q --driver VER --lap fastest --plot trace
 
 # Python code approach
-from data_acquisition import F1DataManager
-data_manager = F1DataManager()
+from src.data_acquisition import F1DataLoader
+data_manager = F1DataLoader()
 session = data_manager.load_session(2024, "Monaco", "Q")
 driver_data = data_manager.get_driver_data(session['session'], "VER", "fastest")
 ```
@@ -34,8 +34,8 @@ Compare two drivers on the same track:
 python main.py --year 2024 --track Monaco --session Q --driver VER --compare HAM --plot compare
 
 # Python code
-from performance_metrics import PerformanceAnalyzer
-analyzer = PerformanceAnalyzer()
+from src.performance_metrics import DriverPerformanceAnalyzer
+analyzer = DriverPerformanceAnalyzer()
 comparison = analyzer.compare_drivers(ver_data, ham_data, "VER", "HAM")
 ```
 
@@ -136,8 +136,8 @@ Extend the Python examples:
 
 ```python
 # Load data for custom analysis
-from data_acquisition import F1DataManager
-from performance_metrics import PerformanceAnalyzer
+from src.data_acquisition import F1DataLoader
+from src.performance_metrics import DriverPerformanceAnalyzer
 
 data_manager = F1DataManager()
 analyzer = PerformanceAnalyzer()

@@ -1,7 +1,7 @@
 import pytest
 import pandas as pd
 import numpy as np
-from visualization import plot_throttle_brake_trace
+from src.visualization import plot_throttle_brake_trace
 
 def test_plot_throttle_brake_trace(tmp_path):
     telemetry = pd.DataFrame({

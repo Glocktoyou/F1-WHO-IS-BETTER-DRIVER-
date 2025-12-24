@@ -24,28 +24,34 @@ This project provides **data-driven insights** to answer the eternal F1 question
 
 ```
 ├── 📁 Project Root
-│   ├── 🐍 Core Application
-│   │   ├── app.py                     # Flask web application (main entry point)
-│   │   ├── app_test.py               # Lightweight test version
-│   │   ├── main.py                   # CLI entry point
-│   │   ├── data_acquisition.py       # Data loading & session management
-│   │   ├── performance_metrics.py    # Driver analytics & metrics
-│   │   └── visualization.py          # Plotting & visualization engine
+│   ├── 🐍 Core Application (src/)
+│   │   ├── app.py                    # Flask web application (main entry point)
+│   │   ├── app_test.py              # Lightweight test version
+│   │   ├── main.py                  # CLI entry point  
+│   │   ├── data_acquisition.py      # Data loading & session management
+│   │   ├── performance_metrics.py   # Driver analytics & metrics
+│   │   ├── visualization.py         # Plotting & visualization engine
+│   │   └── __init__.py              # Package initialization
+│   │
+│   ├── 📄 Entry Points (Wrappers)
+│   │   ├── app.py                   # Web app wrapper script
+│   │   └── main.py                  # CLI wrapper script
 │   │
 │   ├── 🌐 Web Interface
-│   │   ├── templates/                # HTML templates
-│   │   │   ├── base.html            # Base template
-│   │   │   ├── index.html           # Main dashboard
-│   │   │   └── error.html           # Error handling
-│   │   └── static/                  # Static assets
-│   │       ├── css/style.css        # Custom styling
-│   │       └── plots/               # Generated plot images
+│   │   ├── templates/               # HTML templates
+│   │   │   ├── base.html           # Base template
+│   │   │   ├── index.html          # Main dashboard
+│   │   │   └── error.html          # Error handling
+│   │   └── static/                 # Static assets
+│   │       ├── css/style.css       # Custom styling
+│   │       └── plots/              # Generated plot images
 │   │
 │   ├── 🧪 Testing & Examples
-│   │   ├── tests/                   # Unit tests & sample data
-│   │   ├── examples/                # Usage examples
-│   │   ├── test_api.py             # API testing
-│   │   └── test_manual.py          # Manual testing utilities
+│   │   ├── tests/                  # Unit tests & sample data
+│   │   │   ├── test_api.py         # API testing
+│   │   │   ├── test_manual.py      # Manual testing utilities
+│   │   │   └── test_*.py           # Unit test modules
+│   │   └── examples/               # Usage examples
 │   │
 │   ├── 📊 Data & Cache
 │   │   ├── cache/                   # FastF1 cache (auto-generated)

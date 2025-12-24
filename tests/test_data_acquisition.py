@@ -1,5 +1,5 @@
 import pytest
-from data_acquisition import F1DataLoader
+from src.data_acquisition import F1DataLoader
 
 class DummySession:
     def __init__(self):

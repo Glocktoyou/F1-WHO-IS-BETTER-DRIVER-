@@ -1,6 +1,6 @@
 import pytest
 import pandas as pd
-from performance_metrics import DriverPerformanceAnalyzer
+from src.performance_metrics import DriverPerformanceAnalyzer
 
 def test_braking_zones():
     df = pd.DataFrame({'Brake': [0, 20, 50, 0, 0, 30, 0], 'Distance': [0, 10, 20, 30, 40, 50, 60]})

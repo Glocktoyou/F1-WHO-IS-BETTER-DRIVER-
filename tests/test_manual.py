@@ -6,7 +6,7 @@ Manual test for tracks API functionality
 import sys
 sys.path.insert(0, '.')
 
-from app import app
+from src.app import app
 import json
 
 def test_tracks_api():

@@ -14,9 +14,9 @@ import os
 # Add the parent directory to the path so we can import our modules
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from data_acquisition import F1DataManager
-from performance_metrics import PerformanceAnalyzer
-from visualization import F1Visualizer
+from src.data_acquisition import F1DataLoader
+from src.performance_metrics import DriverPerformanceAnalyzer
+from src.visualization import plot_throttle_brake_trace
 
 def example_1_basic_driver_analysis():
     """
