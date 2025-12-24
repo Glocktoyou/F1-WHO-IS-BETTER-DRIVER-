@@ -9,11 +9,17 @@ This package contains the core modules for F1 driver performance analysis:
 - main: Command-line interface
 
 Author: F1 Analysis Team
-Version: 1.0.0
+Version: 1.0.1
+License: MIT
+Repository: https://github.com/Glocktoyou/F1-WHO-IS-BETTER-DRIVER-
+Live Demo: https://f1-who-is-better-driver.onrender.com
 """
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __author__ = "F1 Analysis Team"
+__license__ = "MIT"
+__repository__ = "https://github.com/Glocktoyou/F1-WHO-IS-BETTER-DRIVER-"
+__demo__ = "https://f1-who-is-better-driver.onrender.com"
 
 # Import main classes for easier access
 from .data_acquisition import F1DataLoader

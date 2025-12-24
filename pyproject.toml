@@ -1,0 +1,139 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "f1-who-is-better-driver"
+version = "1.0.1"
+authors = [
+    {name = "F1 Analysis Team"},
+]
+description = "A comprehensive Formula 1 driver performance analysis tool with interactive web dashboard"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Visualization",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11", 
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "Framework :: Flask",
+    "Environment :: Web Environment",
+    "Environment :: Console",
+]
+keywords = [
+    "formula1", "f1", "racing", "telemetry", "data-analysis",
+    "visualization", "motorsport", "driver-comparison",
+    "performance-analysis", "web-dashboard"
+]
+dependencies = [
+    "fastf1>=3.3.0,<4.0.0",
+    "pandas>=2.1.0,<3.0.0", 
+    "numpy>=1.24.0,<2.0.0",
+    "matplotlib>=3.7.0,<4.0.0",
+    "flask>=2.3.0,<3.0.0",
+    "werkzeug>=2.3.0,<3.0.0",
+    "jinja2>=3.1.0,<4.0.0",
+    "gunicorn>=20.1.0,<22.0.0",
+    "requests>=2.31.0,<3.0.0",
+    "pillow>=10.0.0,<11.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.5.0",
+]
+test = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/Glocktoyou/F1-WHO-IS-BETTER-DRIVER-"
+"Bug Tracker" = "https://github.com/Glocktoyou/F1-WHO-IS-BETTER-DRIVER-/issues"
+"Documentation" = "https://github.com/Glocktoyou/F1-WHO-IS-BETTER-DRIVER-#readme"
+"Live Demo" = "https://f1-who-is-better-driver.onrender.com"
+"Source Code" = "https://github.com/Glocktoyou/F1-WHO-IS-BETTER-DRIVER-"
+"Contributing" = "https://github.com/Glocktoyou/F1-WHO-IS-BETTER-DRIVER-/blob/main/CONTRIBUTING.md"
+"Changelog" = "https://github.com/Glocktoyou/F1-WHO-IS-BETTER-DRIVER-/blob/main/CHANGELOG.md"
+
+[project.scripts]
+f1-analysis = "src.main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+[tool.setuptools.package-data]
+src = [
+    "../templates/*.html",
+    "../static/css/*.css",
+]
+
+# Black configuration
+[tool.black]
+line-length = 88
+target-version = ['py310', 'py311', 'py312']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+    \.git
+    | \.venv
+    | \.env
+    | cache
+    | outputs
+)/
+'''
+
+# pytest configuration
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "--verbose",
+    "--cov=src",
+    "--cov-report=term-missing",
+    "--cov-report=html:htmlcov",
+    "--cov-report=xml:coverage.xml",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "web: marks tests that require web interface",
+]
+
+# Coverage configuration
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "*/tests/*",
+    "*/venv/*", 
+    "*/.venv/*",
+    "*/cache/*",
+    "*/outputs/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]

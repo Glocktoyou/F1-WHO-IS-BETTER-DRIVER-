@@ -61,6 +61,12 @@ coverage.xml
 # VS Code
 .vscode/
 
+# IDE files
+.idea/
+*.swp
+*.swo
+*~
+
 # FastF1 cache - ignore cached F1 data but keep structure
 cache/**/*.ff1pkl
 cache/**/*.csv
@@ -75,6 +81,21 @@ outputs/**/*.html
 *.h5
 *.parquet
 *.feather
+
+# Testing and coverage
+htmlcov/
+.coverage
+coverage.xml
+.pytest_cache/
+
+# Build and distribution
+build/
+dist/
+*.egg-info/
+
+# Package managers
+pip-log.txt
+pip-delete-this-directory.txt
 
 # Keep static and templates directories
 # static/

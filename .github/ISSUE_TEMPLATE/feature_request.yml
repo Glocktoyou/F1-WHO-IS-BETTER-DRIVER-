@@ -1,0 +1,92 @@
+name: Feature Request
+description: Suggest a new feature or enhancement for the F1 analysis tool
+title: "[FEATURE] "
+labels: ["enhancement", "feature-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new feature! Please describe your idea in detail.
+
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Feature Description
+      description: A clear and concise description of the feature you'd like to see
+      placeholder: Describe the feature you'd like...
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-solution
+    attributes:
+      label: Problem This Solves
+      description: Is your feature request related to a problem? Please describe.
+      placeholder: I'm always frustrated when...
+
+  - type: dropdown
+    id: feature-category
+    attributes:
+      label: Feature Category
+      description: What type of feature is this?
+      options:
+        - New Visualization Type
+        - Data Analysis Enhancement
+        - Web Interface Improvement
+        - CLI Enhancement
+        - Performance Optimization
+        - New F1 Data Source
+        - Export/Import Feature
+        - User Experience
+        - Developer Experience
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority Level
+      description: How important is this feature to you?
+      options:
+        - Nice to have
+        - Would be helpful
+        - Important
+        - Critical
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed Solution
+      description: Describe how you think this feature should work
+      placeholder: I think it would work like...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative Solutions
+      description: Describe any alternative solutions or features you've considered
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Examples or Mockups
+      description: Any examples, screenshots, or mockups that illustrate your idea
+
+  - type: checkboxes
+    id: implementation-offer
+    attributes:
+      label: Implementation
+      options:
+        - label: I would be willing to help implement this feature
+        - label: I would be willing to test this feature
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add any other context, links, or references about the feature request

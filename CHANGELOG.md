@@ -8,19 +8,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Comprehensive documentation and repository organization
-- API documentation with detailed endpoint specifications
-- Contributing guidelines for new developers
-- Professional README with clear project structure
-- License file with third-party acknowledgments
+- Live demo deployment on Render platform
+- Professional repository organization with src/ package structure
+- Comprehensive documentation suite (API.md, CONTRIBUTING.md)
+- Version-pinned dependencies for better reproducibility
+- Enhanced deployment instructions for multiple platforms
 
 ### Changed
-- Improved project structure and organization
-- Enhanced README with better visual formatting and badges
-- Updated documentation for better clarity
+- Reorganized project structure with proper Python packaging
+- Updated README with live demo links and professional presentation
+- Improved import structure with relative imports in src/ package
+- Enhanced Quick Start guide with multiple access options
 
 ### Fixed
-- Repository structure and file organization
+- Import statements updated for new package structure
+- Deployment configurations updated for src/ structure
+- Test files properly organized in tests/ directory
+
+## [1.0.1] - 2024-12-24
+
+### Added
+- 🌐 Live demo website: https://f1-who-is-better-driver.onrender.com
+- 🏗️ Professional project structure with src/ package organization
+- 📚 Comprehensive documentation suite
+- 🎯 Interactive web dashboard with 8 visualization types
+- 📊 Real-time F1 telemetry analysis (2018-2024 seasons)
+- 💾 CSV export functionality for data analysis
+- 🧪 Complete test suite with unit tests
+- 📖 Usage examples and tutorials
+- 🚀 Production deployment configurations
+- 📜 MIT License with third-party acknowledgments
+
+### Infrastructure
+- ✅ Render deployment with automatic builds
+- ✅ GitHub repository with proper documentation
+- ✅ Professional README with badges and live demo
+- ✅ Contributing guidelines and development workflow
+- ✅ API documentation and CLI reference
 
 ## [1.0.0] - 2024-12-24
 
