@@ -61,25 +61,21 @@ coverage.xml
 # VS Code
 .vscode/
 
-# FastF1 cache
-cache/
+# FastF1 cache - ignore cached F1 data but keep structure
+cache/**/*.ff1pkl
+cache/**/*.csv
 
-# Output files
-outputs/
+# Output files - ignore generated data but keep structure
+outputs/**/*.csv
+outputs/**/*.png
+outputs/**/*.html
 
-# Data files
+# Data files (specific patterns)
 *.ff1pkl
-*.csv
-*.xlsx
 *.h5
 *.parquet
 *.feather
-*.json
-*.pkl
 
-# Web outputs
-outputs/web/
-
-# Static and templates (if generated)
-static/
-templates/
+# Keep static and templates directories
+# static/
+# templates/

@@ -1,0 +1,427 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <!-- Control Panel -->
+    <div class="col-lg-4 mb-4">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-cogs"></i> Analysis Controls</h5>
+            </div>
+            <div class="card-body">
+                <!-- Session Selection -->
+                <div class="mb-3">
+                    <h6 class="fw-bold">Session Selection</h6>
+                    <form id="sessionForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label">Year</label>
+                                <select class="form-select" id="yearSelect" required>
+                                    <option value="">Select Year</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label">Session</label>
+                                <select class="form-select" id="sessionSelect" required>
+                                    <option value="">Select Session</option>
+                                    <option value="FP1">Free Practice 1</option>
+                                    <option value="FP2">Free Practice 2</option>
+                                    <option value="FP3">Free Practice 3</option>
+                                    <option value="Q">Qualifying</option>
+                                    <option value="S">Sprint</option>
+                                    <option value="R">Race</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Track/Circuit</label>
+                            <select class="form-select" id="trackSelect" required disabled>
+                                <option value="">Select Track</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-sm" id="loadSessionBtn">
+                            <i class="fas fa-download"></i> Load Session
+                        </button>
+                    </form>
+                </div>
+
+                <hr>
+
+                <!-- Analysis Options -->
+                <div class="mb-3" id="analysisOptions" style="display: none;">
+                    <h6 class="fw-bold">Analysis Options</h6>
+                    <form id="analysisForm">
+                        <div class="mb-2">
+                            <label class="form-label">Primary Driver</label>
+                            <select class="form-select" id="driverSelect" required>
+                                <option value="">Select Driver</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-2">
+                            <label class="form-label">Lap Type</label>
+                            <select class="form-select" id="lapTypeSelect">
+                                <option value="fastest">Fastest Lap</option>
+                                <option value="first">First Lap</option>
+                                <option value="last">Last Lap</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-2">
+                            <label class="form-label">Visualization Type</label>
+                            <select class="form-select" id="plotTypeSelect" onchange="toggleCompareDriver()">
+                                <option value="trace">Telemetry Trace</option>
+                                <option value="compare">Driver Comparison</option>
+                                <option value="delta">Speed Delta</option>
+                                <option value="gg">G-G Diagram</option>
+                                <option value="corners">Corner Analysis</option>
+                                <option value="gearmap">Gear Usage Map</option>
+                                <option value="brakemap">Brake Usage Map</option>
+                                <option value="trackmap">Track Map</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-2" id="compareDriverDiv" style="display: none;">
+                            <label class="form-label">Compare With</label>
+                            <select class="form-select" id="compareDriverSelect">
+                                <option value="">Select Driver</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-2" id="colorByDiv" style="display: none;">
+                            <label class="form-label">Color By</label>
+                            <select class="form-select" id="colorBySelect">
+                                <option value="nGear">Gear</option>
+                                <option value="Speed">Speed</option>
+                                <option value="Throttle">Throttle</option>
+                                <option value="Brake">Brake</option>
+                            </select>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success" id="analyzeBtn">
+                                <i class="fas fa-chart-line"></i> Analyze
+                            </button>
+                            <button type="button" class="btn btn-info" id="exportBtn">
+                                <i class="fas fa-download"></i> Export CSV
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Session Info -->
+                <div id="sessionInfo" style="display: none;">
+                    <h6 class="fw-bold">Current Session</h6>
+                    <div class="small text-muted" id="sessionDetails"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Performance Metrics -->
+        <div class="card shadow mt-3" id="metricsCard" style="display: none;">
+            <div class="card-header bg-success text-white">
+                <h6 class="mb-0"><i class="fas fa-tachometer-alt"></i> Performance Metrics</h6>
+            </div>
+            <div class="card-body">
+                <div id="performanceMetrics"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Visualization Area -->
+    <div class="col-lg-8">
+        <div class="card shadow">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0"><i class="fas fa-chart-area"></i> Visualization</h5>
+            </div>
+            <div class="card-body">
+                <div id="loadingSpinner" class="text-center" style="display: none;">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Processing analysis...</p>
+                </div>
+                
+                <div id="noDataMessage" class="text-center text-muted">
+                    <i class="fas fa-chart-line fa-3x mb-3"></i>
+                    <h5>No Analysis Yet</h5>
+                    <p>Load a session and select analysis options to view visualizations</p>
+                </div>
+                
+                <div id="visualizationArea" style="display: none;">
+                    <div class="mb-3">
+                        <h6 id="plotTitle" class="fw-bold"></h6>
+                        <div class="small text-muted" id="lapInfo"></div>
+                    </div>
+                    <div class="text-center">
+                        <img id="plotImage" class="img-fluid" style="max-height: 600px;" alt="Analysis Plot">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Error Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">Error</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="errorMessage"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let sessionLoaded = false;
+    
+    // Load tracks when year is selected
+    $('#yearSelect').change(function() {
+        const year = $(this).val();
+        if (year) {
+            loadTracks(year);
+        } else {
+            $('#trackSelect').prop('disabled', true).html('<option value="">Select Track</option>');
+        }
+    });
+    
+    // Load session form submit
+    $('#sessionForm').submit(function(e) {
+        e.preventDefault();
+        loadSession();
+    });
+    
+    // Analysis form submit
+    $('#analysisForm').submit(function(e) {
+        e.preventDefault();
+        runAnalysis();
+    });
+    
+    // Export button
+    $('#exportBtn').click(function() {
+        exportCSV();
+    });
+    
+    function loadTracks(year) {
+        $('#trackSelect').prop('disabled', true).html('<option value="">Loading...</option>');
+        
+        $.get(`/api/tracks/${year}`)
+            .done(function(data) {
+                if (data.success) {
+                    let options = '<option value="">Select Track</option>';
+                    data.tracks.forEach(function(track) {
+                        options += `<option value="${track.name}">${track.name} (Round ${track.round})</option>`;
+                    });
+                    $('#trackSelect').html(options).prop('disabled', false);
+                } else {
+                    showError('Failed to load tracks: ' + data.error);
+                    $('#trackSelect').html('<option value="">Error loading tracks</option>');
+                }
+            })
+            .fail(function() {
+                showError('Network error loading tracks');
+                $('#trackSelect').html('<option value="">Error loading tracks</option>');
+            });
+    }
+    
+    function loadSession() {
+        const data = {
+            year: $('#yearSelect').val(),
+            track: $('#trackSelect').val(),
+            session: $('#sessionSelect').val()
+        };
+        
+        $('#loadSessionBtn').prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Loading...');
+        
+        $.ajax({
+            url: '/api/load_session',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function(response) {
+                if (response.success) {
+                    sessionLoaded = true;
+                    updateDriverSelects(response.drivers);
+                    showSessionInfo(response.session_info);
+                    $('#analysisOptions').show();
+                    showSuccess('Session loaded successfully!');
+                } else {
+                    showError('Failed to load session: ' + response.error);
+                }
+            },
+            error: function() {
+                showError('Network error loading session');
+            },
+            complete: function() {
+                $('#loadSessionBtn').prop('disabled', false).html('<i class="fas fa-download"></i> Load Session');
+            }
+        });
+    }
+    
+    function updateDriverSelects(drivers) {
+        let options = '<option value="">Select Driver</option>';
+        drivers.forEach(function(driver) {
+            options += `<option value="${driver}">${driver}</option>`;
+        });
+        $('#driverSelect, #compareDriverSelect').html(options);
+    }
+    
+    function showSessionInfo(info) {
+        const details = `
+            <strong>${info.race}</strong> ${info.year}<br>
+            Session: ${info.session_type}<br>
+            Drivers: ${info.drivers.length}
+        `;
+        $('#sessionDetails').html(details);
+        $('#sessionInfo').show();
+    }
+    
+    function toggleCompareDriver() {
+        const plotType = $('#plotTypeSelect').val();
+        const needsCompare = ['compare', 'delta'].includes(plotType);
+        const isTrackmap = plotType === 'trackmap';
+        
+        $('#compareDriverDiv').toggle(needsCompare);
+        $('#colorByDiv').toggle(isTrackmap);
+    }
+    
+    function runAnalysis() {
+        if (!sessionLoaded) {
+            showError('Please load a session first');
+            return;
+        }
+        
+        const plotType = $('#plotTypeSelect').val();
+        const needsCompare = ['compare', 'delta'].includes(plotType);
+        
+        if (needsCompare && !$('#compareDriverSelect').val()) {
+            showError('Please select a driver to compare with');
+            return;
+        }
+        
+        const data = {
+            driver: $('#driverSelect').val(),
+            lap_type: $('#lapTypeSelect').val(),
+            plot_type: plotType,
+            compare_driver: $('#compareDriverSelect').val(),
+            color_by: $('#colorBySelect').val()
+        };
+        
+        $('#loadingSpinner').show();
+        $('#noDataMessage, #visualizationArea').hide();
+        
+        $.ajax({
+            url: '/api/analyze',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function(response) {
+                if (response.success) {
+                    showVisualization(response);
+                    showMetrics(response.metrics);
+                } else {
+                    showError('Analysis failed: ' + response.error);
+                }
+            },
+            error: function() {
+                showError('Network error during analysis');
+            },
+            complete: function() {
+                $('#loadingSpinner').hide();
+            }
+        });
+    }
+    
+    function showVisualization(response) {
+        $('#plotImage').attr('src', response.plot_url);
+        $('#plotTitle').text(`${response.lap_info.driver} - ${$('#plotTypeSelect option:selected').text()}`);
+        $('#lapInfo').text(`Lap ${response.lap_info.lap_number} | Time: ${response.lap_info.lap_time}`);
+        $('#visualizationArea').show();
+        $('#noDataMessage').hide();
+    }
+    
+    function showMetrics(metrics) {
+        let html = '<div class="row small">';
+        html += `<div class="col-6 mb-1"><strong>Max Speed:</strong> ${metrics.max_speed} km/h</div>`;
+        html += `<div class="col-6 mb-1"><strong>Avg Speed:</strong> ${metrics.avg_speed} km/h</div>`;
+        html += `<div class="col-6 mb-1"><strong>Full Throttle:</strong> ${metrics.full_throttle_percentage}%</div>`;
+        html += `<div class="col-6 mb-1"><strong>Coasting:</strong> ${metrics.coasting_time_percentage}%</div>`;
+        html += `<div class="col-6 mb-1"><strong>Max Brake:</strong> ${metrics.max_brake}%</div>`;
+        html += `<div class="col-6 mb-1"><strong>Smoothness:</strong> ${metrics.throttle_smoothness}</div>`;
+        html += '</div>';
+        
+        $('#performanceMetrics').html(html);
+        $('#metricsCard').show();
+    }
+    
+    function exportCSV() {
+        if (!sessionLoaded) {
+            showError('Please load a session first');
+            return;
+        }
+        
+        const data = {
+            driver: $('#driverSelect').val(),
+            lap_type: $('#lapTypeSelect').val()
+        };
+        
+        $.ajax({
+            url: '/api/export_csv',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function(response) {
+                if (response.success) {
+                    // Create download link
+                    const link = document.createElement('a');
+                    link.href = response.download_url;
+                    link.download = response.filename;
+                    link.click();
+                    showSuccess('CSV export started');
+                } else {
+                    showError('Export failed: ' + response.error);
+                }
+            },
+            error: function() {
+                showError('Network error during export');
+            }
+        });
+    }
+    
+    function showError(message) {
+        $('#errorMessage').text(message);
+        $('#errorModal').modal('show');
+    }
+    
+    function showSuccess(message) {
+        // Create a temporary alert
+        const alert = $(`
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        `);
+        $('main').prepend(alert);
+        setTimeout(() => alert.alert('close'), 3000);
+    }
+    
+    // Initialize
+    $(document).ready(function() {
+        toggleCompareDriver();
+    });
+</script>
+{% endblock %}
